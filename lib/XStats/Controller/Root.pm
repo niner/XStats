@@ -13,7 +13,7 @@ __PACKAGE__->config(namespace => '');
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $Perl6::XStats::Controller::Root->index($self, $c);
+    return $self->index($c);
 }
 
 sub default :Path {
@@ -24,26 +24,24 @@ sub default :Path {
 
 sub end : ActionClass('RenderView') {}
 
+sub COMPONENT {
+    my ($class, $app, $args) = @_;
+    my $self = $class->new($app, $args);
+    return $Perl6::ObjectCreator->create(__PACKAGE__, $self);
+}
+
 __PACKAGE__->meta->make_immutable;
 
-{
-    no warnings 'redefine';
-    my $new = \&XStats::Controller::Root::new;
-    *XStats::Controller::Root::new = sub {
-        warn $Perl6::ObjectCreator->create(__PACKAGE__, $new->(@_));
-        return $new->(@_);
-    };
-}
+Class::MOP::store_metaclass_by_name('Perl6::Object', __PACKAGE__->meta);
 
 use v6-inline;
 
 also does Inline::Perl5::Perl5Parent['XStats::Controller::Root'];
-
-method COMPONENT {
-    warn "COMPONENT!";
-}
-
 method index($c) {
     # Hello World
     $c.response.body( $c.welcome_message );
+}
+
+method can($name) {
+    return $.parent.perl5.invoke('XStats::Controller::Root', 'can', $name);
 }

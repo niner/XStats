@@ -9,10 +9,7 @@ my $p5 = Inline::Perl5.new;
 
 class Perl6ObjectCreator {
     method create($package, $parent) {
-        warn $package;
-        warn $parent;
-        warn $p5;
-        warn XStats::Controller::Root.new(perl5 => $p5, parent => $parent);
+        ::($package).WHAT.new(perl5 => $p5, parent => $parent);
     }
 }
 
