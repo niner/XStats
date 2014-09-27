@@ -2,7 +2,7 @@ package XStats::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; with 'CatalystX::Perl6::Controller'; }
+BEGIN { extends 'Catalyst::Controller'; with 'CatalystX::Perl6::Component'; }
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -16,7 +16,7 @@ __PACKAGE__->meta->make_immutable;
 use v6-inline;
 
 also does Inline::Perl5::Perl5Parent['XStats::Controller::Root'];
-also does CatalystX::Perl6::Controller;
+also does CatalystX::Perl6::Component;
 
 method index($c) is p5attrs['Path', 'Args(0)'] {
     # Hello World

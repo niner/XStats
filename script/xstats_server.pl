@@ -3,7 +3,7 @@
 use v6;
 use Inline::Perl5;
 use Perl6::MOP;
-use CatalystX::Perl6::Controller;
+use CatalystX::Perl6::Component;
 
 %*ENV<CATALYST_SCRIPT_GEN> = 40;
 
@@ -15,8 +15,8 @@ class Perl6ObjectCreator {
     }
 }
 
-$p5.run('use lib qw(lib)');
 $p5.run('
+    use lib qw(lib);
     sub init_perl6_object_creator {
         $Perl6::ObjectCreator = shift;
     }

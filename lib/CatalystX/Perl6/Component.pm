@@ -1,4 +1,4 @@
-package CatalystX::Perl6::Controller;
+package CatalystX::Perl6::Component;
 
 use Moose::Role;
 
