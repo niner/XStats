@@ -1,0 +1,5 @@
+role CatalystX::Perl6::Controller {
+    method can($name) {
+        return $.parent.perl5.invoke(self.^name, 'can', $name);
+    }
+}

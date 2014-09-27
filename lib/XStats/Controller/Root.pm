@@ -2,7 +2,7 @@ package XStats::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller' }
+BEGIN { extends 'Catalyst::Controller'; with 'CatalystX::Perl6::Controller'; }
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -10,22 +10,13 @@ BEGIN { extends 'Catalyst::Controller' }
 #
 __PACKAGE__->config(namespace => '');
 
-sub COMPONENT {
-    my ($class, $app, $args) = @_;
-    my $self = $class->new($app, $args);
-    return $Perl6::ObjectCreator->create(__PACKAGE__, $self);
-}
-
-Class::MOP::store_metaclass_by_name(
-    'Perl6::Object',
-    $Perl6::ObjectCreator->create('Perl6::MOP', __PACKAGE__->meta)
-);
-
+__PACKAGE__->init_metaclass;
 __PACKAGE__->meta->make_immutable;
 
 use v6-inline;
 
 also does Inline::Perl5::Perl5Parent['XStats::Controller::Root'];
+also does CatalystX::Perl6::Controller;
 
 method index($c) is p5attrs['Path', 'Args(0)'] {
     # Hello World
@@ -42,8 +33,4 @@ method test($c) is p5attrs['Local'] {
 }
 
 method end($c) is p5attrs['ActionClass("RenderView")'] {
-}
-
-method can($name) {
-    return $.parent.perl5.invoke('XStats::Controller::Root', 'can', $name);
 }
