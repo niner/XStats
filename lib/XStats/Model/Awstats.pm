@@ -41,7 +41,34 @@ grammar Awstats {
         ^^ $$ \n?
     }
     token block {
-        BEGIN_(<name>) <.ws>*? \d* \n
+        <block_day>
+        | <.generic_block>
+    }
+    token block_day {
+        BEGIN_DAY ' ' \d+ \n
+        <line_day>*?
+        END_DAY \n?
+    }
+    token line_day {
+        <date> ' ' \d+ ' ' \d+ ' ' \d+ ' ' <visits> \n
+    }
+    token date {
+        <year> <month> <day>
+    }
+    token year {
+        \d**4
+    }
+    token month {
+        \d\d
+    }
+    token day {
+        \d\d
+    }
+    token visits {
+        \d+
+    }
+    token generic_block {
+        BEGIN_ <!before DAY>(<name>) ' ' \d+ \n
         <line>*?
         END_$0 \n?
     }
@@ -49,10 +76,19 @@ grammar Awstats {
         \w+
     }
     token line {
-        ^^ <name> (\N*) $$ \n?
+        ^^ (\N*) $$ \n?
+    }
+}
+
+class AwstatsActions {
+    has $.days is rw;
+    method block_day($match) {
+        $.days = $match;
     }
 }
 
 method parse($c) {
-    return Awstats.parsefile('awstats.txt');
+    my $actions = AwstatsActions.new;
+    Awstats.parsefile('awstats.txt', :actions($actions));
+    return $actions;
 }
