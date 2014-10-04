@@ -19,17 +19,15 @@ also does Inline::Perl5::Perl5Parent['XStats::Controller::Root'];
 also does CatalystX::Perl6::Component;
 
 method index($c) is p5attrs['Path', 'Args(0)'] {
-    # Hello World
-    $c.response.body( $c.welcome_message );
+    $c.stash({
+        template  => 'index.zpt',
+        uri_graph => $c.uri_for('graph'),
+    });
 }
 
 method default($c) is p5attrs['Path'] {
     $c.response.body( 'Page not found' );
     $c.response.status(404);
-}
-
-method test($c) is p5attrs['Local'] {
-    $c.res.body('Test!');
 }
 
 method end($c) is p5attrs['ActionClass("RenderView")'] {
