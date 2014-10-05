@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html
+    xmlns:tal="http://purl.org/petal/1.0/"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title metal:define-slot="title">XStats</title>
+    </head>
+    <body>
+        <img tal:attributes="src uri_graph" alt=""/>
+    </body>
+</html>
