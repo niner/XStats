@@ -1,6 +1,6 @@
 class Perl6::MOP;
 
-use Inline::Perl5;
+use CatalystX::Perl6::Component::Perl5Attributes;
 
 has $.parent;
 
@@ -33,7 +33,7 @@ method get_nearest_methods_with_attributes {
 
     return
         |$class.^methods\
-            .grep({$_.^does(::Inline::Perl5::Perl5Attributes)})\
+            .grep({$_.^does(::Perl5Attributes)})\
             .map({P6Method.new(method => $_)}),
         |$.parent.get_nearest_methods_with_attributes;
 }

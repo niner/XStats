@@ -12,10 +12,11 @@ use v6-inline;
 use SVG::Plot;
 use SVG;
 
+use CatalystX::Perl6::Component::Perl5Attributes;
 also does Inline::Perl5::Perl5Parent['XStats::Controller::Graph'];
 also does CatalystX::Perl6::Component;
 
-method show($c) is p5attrs<Path Args(0)> {
+method show($c) is Path is Args[0] {
     $c.response.content_type('image/svg+xml');
     my $results = $c.model('Awstats').parse($c).days;
     my $days = $results.hash<line_day>;
@@ -29,8 +30,8 @@ method show($c) is p5attrs<Path Args(0)> {
             :title('Visitors per day'),
             :values([$(@values)]),
             :labels(@labels),
-            :colors<lightgray>
-        ).plot(:bars);
+            :colors<gray>
+        ).plot(:lines);
 
     $c.res.body(SVG.serialize(svg => $svg));
 }
