@@ -1,4 +1,4 @@
-class Perl6::MOP;
+unit class Perl6::MOP;
 
 use CatalystX::Perl6::Component::Perl5Attributes;
 
