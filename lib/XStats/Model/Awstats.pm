@@ -10,7 +10,6 @@ __PACKAGE__->meta->make_immutable;
 
 use v6-inline;
 
-also does Inline::Perl5::Perl5Parent['XStats::Model::Awstats'];
 also does CatalystX::Perl6::Component;
 
 grammar Awstats {

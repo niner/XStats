@@ -7,20 +7,19 @@ use CatalystX::Perl6::Component;
 
 %*ENV<CATALYST_SCRIPT_GEN> = 40;
 
-my $p5 = Inline::Perl5.new;
-
 class Perl6ObjectCreator {
     method create($package, $parent) {
-        ::($package).WHAT.new(perl5 => $p5, parent => $parent);
+        ::($package).WHAT.new(parent => $parent);
     }
 }
 
-$p5.run('
-    use lib qw(lib);
+use lib:from<Perl5> 'lib';
+BEGIN EVAL '
     sub init_perl6_object_creator {
         $Perl6::ObjectCreator = shift;
     }
-');
-$p5.call('init_perl6_object_creator', Perl6ObjectCreator.new);
-$p5.use('Catalyst::ScriptRunner');
-$p5.invoke('Catalyst::ScriptRunner', 'run', 'XStats', 'Server');
+', :lang<Perl5>;
+Inline::Perl5.default_perl5.call('init_perl6_object_creator', Perl6ObjectCreator.new);
+
+use Catalyst::ScriptRunner:from<Perl5>;
+Catalyst::ScriptRunner.run('XStats', 'Server');

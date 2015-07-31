@@ -13,7 +13,6 @@ use SVG::Plot;
 use SVG;
 
 use CatalystX::Perl6::Component::Perl5Attributes;
-also does Inline::Perl5::Perl5Parent['XStats::Controller::Graph'];
 also does CatalystX::Perl6::Component;
 
 method show($c) is Path is Args[0] {
