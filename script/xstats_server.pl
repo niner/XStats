@@ -3,7 +3,6 @@
 use v6;
 use Inline::Perl5;
 use Perl6::MOP;
-use CatalystX::Perl6::Component;
 
 %*ENV<CATALYST_SCRIPT_GEN> = 40;
 

@@ -7,13 +7,12 @@ BEGIN { extends 'Catalyst::Controller'; with 'CatalystX::Perl6::Component'; }
 __PACKAGE__->init_metaclass;
 __PACKAGE__->meta->make_immutable;
 
-use v6-inline;
+use v6::inline constructors => [qw(COMPONENT)];
 
 use SVG::Plot;
 use SVG;
 
 use CatalystX::Perl6::Component::Perl5Attributes;
-also does CatalystX::Perl6::Component;
 
 method show($c) is Path is Args[0] {
     $c.response.content_type('image/svg+xml');

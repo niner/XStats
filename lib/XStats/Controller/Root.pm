@@ -13,10 +13,9 @@ __PACKAGE__->config(namespace => '');
 __PACKAGE__->init_metaclass;
 __PACKAGE__->meta->make_immutable;
 
-use v6-inline;
+use v6::inline constructors => [qw(COMPONENT)];
 
 use CatalystX::Perl6::Component::Perl5Attributes;
-also does CatalystX::Perl6::Component;
 
 method index($c) is Path is Args[0] {
     $c.stash({

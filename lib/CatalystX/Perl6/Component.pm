@@ -2,14 +2,6 @@ package CatalystX::Perl6::Component;
 
 use Moose::Role;
 
-sub COMPONENT {
-    my ($class, $app, $args) = @_;
-    my $self = $class->new($app, $args);
-    my $p6 = $Perl6::ObjectCreator->create($class, $self);
-    bless $self, "Perl6::Object::$class"; # Explodes if we bless $p6 here!
-    return $p6;
-}
-
 sub init_metaclass {
     my ($class) = @_;
 

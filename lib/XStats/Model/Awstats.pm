@@ -8,9 +8,7 @@ with 'CatalystX::Perl6::Component';
 __PACKAGE__->init_metaclass;
 __PACKAGE__->meta->make_immutable;
 
-use v6-inline;
-
-also does CatalystX::Perl6::Component;
+use v6::inline constructors => [qw(COMPONENT)];
 
 grammar Awstats {
     token TOP {
