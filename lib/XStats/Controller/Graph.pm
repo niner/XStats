@@ -6,9 +6,6 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 __PACKAGE__->meta->make_immutable;
 
-sub shows : Path :Args(0) {
-}
-
 use v6::inline;
 
 use SVG::Plot;
