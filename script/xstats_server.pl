@@ -1,11 +1,11 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env perl
 
-use v6;
-use Inline::Perl5;
+use Inline::Perl6;
+BEGIN { Inline::Perl6::initialize; }
 
-%*ENV<CATALYST_SCRIPT_GEN> = 40;
+$ENV{CATALYST_SCRIPT_GEN} = 40;
 
-use lib:from<Perl5> 'lib';
+use lib 'lib';
 
-use Catalyst::ScriptRunner:from<Perl5>;
-Catalyst::ScriptRunner.run('XStats', 'Server');
+use Catalyst::ScriptRunner;
+Catalyst::ScriptRunner->run('XStats', 'Server');
