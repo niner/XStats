@@ -13,7 +13,7 @@ use SVG;
 
 use CatalystX::Perl6::Component::Perl5Attributes;
 
-method show($c, *@args) is Path is Args(0) {
+method show($c) is Path is Args(0) {
     $c.response.content_type('image/svg+xml');
     my $results = $c.model('Awstats').parse($c).days;
     my $days = $results.hash<line_day>;
