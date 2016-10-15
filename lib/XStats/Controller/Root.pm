@@ -2,7 +2,7 @@ package XStats::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; with 'CatalystX::Perl6::Component'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -10,21 +10,20 @@ BEGIN { extends 'Catalyst::Controller'; with 'CatalystX::Perl6::Component'; }
 #
 __PACKAGE__->config(namespace => '');
 
-__PACKAGE__->init_metaclass;
 __PACKAGE__->meta->make_immutable;
 
 use v6::inline constructors => [qw(COMPONENT)];
 
 use CatalystX::Perl6::Component::Perl5Attributes;
 
-method index($c) is Path is Args[0] {
+method index($c) is Path is Args(0) {
     $c.stash({
         template  => 'index.zpt',
         uri_graph => $c.uri_for('graph'),
     });
 }
 
-method default($c) is Path {
+method default($c) is Path is Args {
     $c.response.body( 'Page not found' );
     $c.response.status(404);
 }

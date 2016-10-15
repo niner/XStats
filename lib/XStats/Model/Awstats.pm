@@ -3,12 +3,10 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Model';
-with 'CatalystX::Perl6::Component';
 
-__PACKAGE__->init_metaclass;
 __PACKAGE__->meta->make_immutable;
 
-use v6::inline constructors => [qw(COMPONENT)];
+use v6::inline;
 
 grammar Awstats {
     token TOP {

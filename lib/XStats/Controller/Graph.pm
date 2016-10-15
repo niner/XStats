@@ -2,19 +2,21 @@ package XStats::Controller::Graph;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; with 'CatalystX::Perl6::Component'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
-__PACKAGE__->init_metaclass;
 __PACKAGE__->meta->make_immutable;
 
-use v6::inline constructors => [qw(COMPONENT)];
+sub shows : Path :Args(0) {
+}
+
+use v6::inline;
 
 use SVG::Plot;
 use SVG;
 
 use CatalystX::Perl6::Component::Perl5Attributes;
 
-method show($c) is Path is Args[0] {
+method show($c, *@args) is Path is Args(0) {
     $c.response.content_type('image/svg+xml');
     my $results = $c.model('Awstats').parse($c).days;
     my $days = $results.hash<line_day>;
@@ -26,7 +28,7 @@ method show($c) is Path is Args[0] {
             :plot-height(400),
             :fill-width(2),
             :title('Visitors per day'),
-            :values([$(@values)]),
+            :values([$@values]),
             :labels(@labels),
             :colors<gray>
         ).plot(:lines);
