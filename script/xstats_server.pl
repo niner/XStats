@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 
-use Inline::Perl6;
-BEGIN { Inline::Perl6::initialize; }
+use Inline::Perl6 0.08;
 
 $ENV{CATALYST_SCRIPT_GEN} = 40;
 
