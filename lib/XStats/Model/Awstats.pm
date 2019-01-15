@@ -6,7 +6,7 @@ extends 'Catalyst::Model';
 
 __PACKAGE__->meta->make_immutable;
 
-use v6::inline;
+use v6-inline;
 
 grammar Awstats {
     token TOP {

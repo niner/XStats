@@ -12,7 +12,7 @@ __PACKAGE__->config(namespace => '');
 
 __PACKAGE__->meta->make_immutable;
 
-use v6::inline;
+use v6-inline;
 
 use CatalystX::Perl6::Component::Perl5Attributes;
 
